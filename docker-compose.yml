@@ -1,0 +1,13 @@
+services:
+  restaurants:
+    build:
+      context: .
+      dockerfile: ./apps/restaurants/Dockerfile
+      target: development
+    command: pnpm run start:dev restaurants
+    env_file:
+      - ./apps/restaurants/.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app

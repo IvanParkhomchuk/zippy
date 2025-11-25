@@ -1,8 +1,32 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/zippy/src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/zippy/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/zippy",
+  "projects": {
+    "restaurants": {
+      "type": "application",
+      "root": "apps/restaurants",
+      "entryFile": "main",
+      "sourceRoot": "apps/restaurants/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/restaurants/tsconfig.app.json"
+      }
+    },
+    "zippy": {
+      "type": "application",
+      "root": "apps/zippy",
+      "entryFile": "main",
+      "sourceRoot": "apps/zippy/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/zippy/tsconfig.app.json"
+      }
+    }
   }
 }
