@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Restaurant } from './entities/restaurant.entity';
 import { RestaurantsRepository } from './restaurants.repository';
+import { ProductsModule } from '../products/products.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RestaurantsRepository } from './restaurants.repository';
       }),
     }),
     TypeOrmModule.forFeature([Restaurant]),
+    ProductsModule,
   ],
   controllers: [RestaurantsController],
   providers: [RestaurantsService, RestaurantsRepository],

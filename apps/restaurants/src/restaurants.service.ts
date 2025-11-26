@@ -38,7 +38,7 @@ export class RestaurantsService {
     return restaurant;
   }
 
-  async delete(id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     await this.restaurantsRepository.delete(id);
   }
 }

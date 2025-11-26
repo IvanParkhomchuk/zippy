@@ -42,7 +42,7 @@ export class RestaurantsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): Promise<void> {
-    return this.restaurantsService.delete(id);
+  remove(@Param('id') id: string): Promise<void> {
+    return this.restaurantsService.remove(id);
   }
 }
