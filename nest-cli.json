@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/zippy",
   "projects": {
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
     "restaurants": {
       "type": "application",
       "root": "apps/restaurants",

@@ -1,10 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { AbstractEntity } from '@app/common/database/abstract.entity';
 
 @Entity()
-export class Restaurant {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Restaurant extends AbstractEntity<Restaurant>{
   @Column()
   name: string;
 }

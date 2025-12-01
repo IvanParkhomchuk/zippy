@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsRepository } from './products.repository';
@@ -9,36 +9,27 @@ export class ProductsService {
   constructor(private productsRepository: ProductsRepository) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    return this.productsRepository.createProduct(createProductDto);
+    const product = new Product({ ...createProductDto });
+
+    return this.productsRepository.create(product);
   }
 
   async findAll(): Promise<Product[]> {
-    return this.productsRepository.find();
+    return this.productsRepository.findAll({});
   }
 
   async findOne(id: string): Promise<Product> {
-    const product = await this.productsRepository.findOne({
-      where: { id },
-    });
-
-    if (!product) {
-      throw new NotFoundException();
-    }
-
-    return product;
+    return this.productsRepository.findOne({ id });
   }
 
   async update(
     id: string,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    const restaurant = await this.findOne(id);
-    await this.productsRepository.update(id, updateProductDto);
-
-    return restaurant;
+    return this.productsRepository.findAndUpdate({ id }, updateProductDto);
   }
 
   async remove(id: string): Promise<void> {
-    await this.productsRepository.delete(id);
+    return this.productsRepository.findAndDelete({ id });
   }
 }

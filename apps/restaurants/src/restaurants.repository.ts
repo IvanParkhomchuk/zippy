@@ -1,25 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { Restaurant } from './entities/restaurant.entity';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { AbstractRepository } from '@app/common/database/abstract.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class RestaurantsRepository extends Repository<Restaurant> {
-  constructor(private dataSource: DataSource) {
-    super(Restaurant, dataSource.createEntityManager());
-  }
-
-  async createRestaurant(
-    createRestaurantDto: CreateRestaurantDto,
-  ): Promise<Restaurant> {
-    const { name } = createRestaurantDto;
-
-    const restaurant = this.create({
-      name,
-    });
-
-    await this.save(restaurant);
-
-    return restaurant;
+export class RestaurantsRepository extends AbstractRepository<Restaurant> {
+  constructor(
+    @InjectRepository(Restaurant)
+    restaurantRepository: Repository<Restaurant>,
+    entityManager: EntityManager,
+  ) {
+    super(restaurantRepository, entityManager);
   }
 }
