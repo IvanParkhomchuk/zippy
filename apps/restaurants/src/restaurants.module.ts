@@ -3,7 +3,7 @@ import { RestaurantsController } from './restaurants.controller';
 import { RestaurantsService } from './restaurants.service';
 import { Restaurant } from './entities/restaurant.entity';
 import { RestaurantsRepository } from './restaurants.repository';
-import { ProductsModule } from '../products/products.module';
+import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from '@app/common';
 
 @Module({
