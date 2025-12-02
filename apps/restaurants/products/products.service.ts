@@ -9,9 +9,7 @@ export class ProductsService {
   constructor(private productsRepository: ProductsRepository) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const product = new Product({ ...createProductDto });
-
-    return this.productsRepository.create(product);
+    return this.productsRepository.create(createProductDto);
   }
 
   async findAll(): Promise<Product[]> {

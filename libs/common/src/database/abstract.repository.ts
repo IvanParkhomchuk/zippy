@@ -1,5 +1,5 @@
-import { AbstractEntity } from '@app/common/database/abstract.entity';
 import {
+  DeepPartial,
   EntityManager,
   FindOptionsRelations,
   FindOptionsWhere,
@@ -7,14 +7,16 @@ import {
 } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { AbstractEntity } from './abstract.entity';
 
 export abstract class AbstractRepository<T extends AbstractEntity<T>> {
-  constructor(
+  protected constructor(
     private readonly entityRepository: Repository<T>,
     private readonly entityManager: EntityManager,
   ) {}
 
-  async create(entity: T): Promise<T> {
+  async create(entityDto: DeepPartial<T>) {
+    const entity = this.entityRepository.create(entityDto);
     return this.entityManager.save(entity);
   }
 

@@ -17,9 +17,7 @@ export class RestaurantsService {
   }
 
   async create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {
-    const restaurant = new Restaurant({ ...createRestaurantDto });
-
-    return this.restaurantsRepository.create(restaurant);
+    return this.restaurantsRepository.create(createRestaurantDto);
   }
 
   async update(
