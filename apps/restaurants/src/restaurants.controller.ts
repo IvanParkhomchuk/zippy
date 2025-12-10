@@ -24,11 +24,13 @@ export class RestaurantsController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string): Promise<Restaurant> {
     return this.restaurantsService.findOne(id);
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(
     @Body() createRestaurantDto: CreateRestaurantDto,
   ): Promise<Restaurant> {
@@ -36,6 +38,7 @@ export class RestaurantsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: string,
     @Body() updateRestaurantDto: UpdateRestaurantDto,
@@ -44,6 +47,7 @@ export class RestaurantsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string): Promise<void> {
     return this.restaurantsService.remove(id);
   }
