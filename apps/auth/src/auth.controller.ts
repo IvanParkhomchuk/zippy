@@ -1,9 +1,11 @@
 import { Controller, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './users/decorators/current-user.decorator';
-import { User } from './users/entities/user.entity';
 import type { Response } from 'express';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { User } from '@app/common';
 
 @Controller('auth')
 export class AuthController {
@@ -16,5 +18,11 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     return this.authService.login(user, response);
+  }
+
+  @MessagePattern('authenticate')
+  @UseGuards(JwtAuthGuard)
+  authenticate(@Payload() data: any) {
+    return data.user;
   }
 }

@@ -5,18 +5,20 @@ import {
   Get,
   Param,
   Patch,
-  Post,
+  Post, UseGuards,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
+import { JwtAuthGuard } from '@app/common';
 
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   findAll(): Promise<Restaurant[]> {
     return this.restaurantsService.findAll();
   }
