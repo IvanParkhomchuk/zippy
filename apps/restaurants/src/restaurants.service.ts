@@ -13,7 +13,7 @@ export class RestaurantsService {
   }
 
   async findOne(id: string): Promise<Restaurant> {
-    return this.restaurantsRepository.findOne({ id });
+    return this.restaurantsRepository.findOne({ id }, { products: true });
   }
 
   async create(createRestaurantDto: CreateRestaurantDto): Promise<Restaurant> {

@@ -3,13 +3,18 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/product.entity';
+import { Restaurant } from '../entities/restaurant.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(private productsRepository: ProductsRepository) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    return this.productsRepository.create(createProductDto);
+    return this.productsRepository.create({
+      name: createProductDto.name,
+      price: createProductDto.price,
+      restaurant: { id: createProductDto.restaurantId } as Restaurant,
+    });
   }
 
   async findAll(): Promise<Product[]> {
