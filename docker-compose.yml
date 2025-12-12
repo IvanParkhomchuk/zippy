@@ -23,6 +23,18 @@ services:
       - '3001:3001'
     volumes:
       - .:/usr/src/app
+  orders:
+    build:
+      context: .
+      dockerfile: ./apps/orders/Dockerfile
+      target: development
+    command: pnpm run start:dev orders
+    env_file:
+      - ./apps/orders/.env
+    ports:
+      - '3002:3002'
+    volumes:
+      - .:/usr/src/app
   postgres:
     image: postgres
     env_file:
